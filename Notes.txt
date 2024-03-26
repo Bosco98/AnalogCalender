@@ -1,0 +1,14 @@
+Table optimization 
+
+- check Max 
+- Check min 
+- Drilldown 
+- After drilldown 
+- Report 
+- Compare 
+- Pivot 
+- Dashboard 
+- Open left panel 
+- Open right panel 
+- Flow 
+-   
