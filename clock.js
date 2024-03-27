@@ -17,18 +17,19 @@ function updateClock() {
   secondHand.style.transform = `rotate(${secondDeg}deg)`;
 }
 
-function addFrameContainer() {
+function addFrame() {
   for (var i = 1; i <= 12; i++) {
     var frameContainer = document.querySelector(".frameContainer");
     var numberContainerDiv = document.createElement("div");
     var numberDivElement = document.createElement("div");
+    var transformVar = window.innerWidth > 560 ? 195 : 105;
 
     numberContainerDiv.className = "number";
     numberContainerDiv.innerHTML = "";
     numberContainerDiv.style.transformOrigin = "50% 50%";
     numberContainerDiv.style.transform = `rotate(${
       30 * i
-    }deg) translateY(-195px) `;
+    }deg) translateY(-${transformVar}px) `;
 
     numberDivElement.innerHTML = i;
     numberDivElement.style.transformOrigin = "50% 50%";
@@ -39,8 +40,9 @@ function addFrameContainer() {
   }
 }
 
-function addFrameContainerMinute() {
+function addFrameMinute() {
   for (var i = 1; i <= 60; i++) {
+    var transformVar = window.innerWidth > 560 ? 237 : 121;
     var frameContainer = document.querySelector(".frameContainer");
     var numberContainerMinuteDiv = document.createElement("div");
     var numberDivElement = document.createElement("div");
@@ -50,7 +52,7 @@ function addFrameContainerMinute() {
     numberContainerMinuteDiv.style.transformOrigin = "50% 50%";
     numberContainerMinuteDiv.style.transform = `rotate(${
       6 * i
-    }deg) translateY(-237px) `;
+    }deg) translateY(-${transformVar}px) `;
 
     numberDivElement.innerHTML = i;
 
@@ -61,7 +63,6 @@ function addFrameContainerMinute() {
 
 function addDial() {
   var frameContainer = document.querySelector(".frameContainer");
-
   for (var i = 1; i <= 6; i++) {
     var dialDiv = document.createElement("div");
     dialDiv.className = "clockDial";
@@ -80,9 +81,23 @@ function addDialMinute() {
     if (i % 5 !== 0) frameContainer.append(dialDiv);
   }
 }
+function createClockDialAndFrame() {
+  addFrame();
+  addFrameMinute();
+  addDial();
+  addDialMinute();
+}
 
-addFrameContainer();
-addFrameContainerMinute();
-addDial();
-addDialMinute();
+createClockDialAndFrame();
 setInterval(updateClock, 1000);
+
+var mediaQuery = window.matchMedia("screen and (max-width: 560px)");
+mediaQuery.addEventListener("change", () => {
+  if (window.innerWidth < 560) {
+    document.querySelector(".frameContainer").innerHTML = "";
+    createClockDialAndFrame();
+  } else {
+    document.querySelector(".frameContainer").innerHTML = "";
+    createClockDialAndFrame();
+  }
+});
